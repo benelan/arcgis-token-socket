@@ -1,8 +1,11 @@
 const app = require("express")(),
     server = require('http').Server(app),
+    helmet = require('helmet'),
     request = require('request'),
     path = require('path'),
     io = require('socket.io')(server);
+
+app.use(helmet());
 
 app.get('/', (req, res) => {
     res.sendFile('map.html', { root: path.join(__dirname, '/') });

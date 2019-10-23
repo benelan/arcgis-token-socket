@@ -5,9 +5,11 @@ const app = require("express")(),
     path = require('path'),
     io = require('socket.io')(server);
 
+// http header security
 app.use(helmet());
 app.use(helmet.referrerPolicy({ policy: 'no-referrer' }))
 
+// each connection generates a new token
 io.on('connection', (socket) => {
     request.post({
         url: 'https://www.arcgis.com/sharing/rest/generateToken',
@@ -18,14 +20,14 @@ io.on('connection', (socket) => {
             'password': 'PASSWORD', // this too
             'referer': 'localhost'  // and this for prod
         }
-    }, function (error, response, body) {
-        io.emit("msg", { body });
+    }, (error, response, body) => {
+        io.emit("msg", { body }); // sends token to client
     });
 });
 
+// serves static map file
 app.get('/', (req, res) => {
     res.sendFile('map.html', { root: path.join(__dirname, '/') });
-    
 })
 
 server.listen(process.env.PORT || 8001);

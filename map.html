@@ -19,6 +19,7 @@
   <script>
     let map;
     let tkn;
+    // Load map before attempting to authenticate
     require(["esri/map", "dojo/domReady!"],
       function (Map) {
         map = new Map("map", {
@@ -28,20 +29,21 @@
         });
       });
 
-    var socket = io();
+    var socket = io();  // create connection
     socket.on('connect', function () {
-      socket.on("msg", function (msg) {
+      socket.on("msg", function (msg) { // recieve token
         tkn = msg.body;
 
         require(["esri/layers/FeatureLayer", "esri/IdentityManager"],
           function (FeatureLayer, esriId) {
-            esriId.registerToken({
+            esriId.registerToken({  // register token
               token: tkn.token,
               expires: tkn.expires,
               ssl: tkn.ssl,
               server: 'https://www.arcgis.com/'
             });
 
+            // add secured layer
             var layer = new FeatureLayer("https://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/SFplp/FeatureServer/2");
 
             map.addLayer(layer);

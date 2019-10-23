@@ -18,4 +18,5 @@ Open a modern browser and go to http://localhost:8001/
 * [Node](https://nodejs.org/en/)
 * [Express](https://expressjs.com/)
 * [Socket.io](https://socket.io/)
+* [Helmet](https://helmetjs.github.io)
 * [Request](https://github.com/request/request)

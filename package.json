@@ -1,0 +1,13 @@
+{
+  "name": "backendtoken",
+  "version": "1.0.0",
+  "description": "Use at your own risk",
+  "main": "server.js",
+  "author": "Ben Elan",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "request": "^2.88.0",
+    "socket.io": "^2.3.0"
+  }
+}

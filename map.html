@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
+  <title>Simple Map</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.30/esri/css/esri.css">
+  <style>
+    html,
+    body,
+    #map {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script src="https://js.arcgis.com/3.30/"></script>
+  <script>
+    let map;
+    let tkn;
+    require(["esri/map", "dojo/domReady!"],
+      function (Map) {
+        map = new Map("map", {
+          basemap: "topo",
+          center: [-122.45, 37.75], // longitude, latitude
+          zoom: 13
+        });
+      });
+
+    var socket = io();
+    socket.on('connect', function () {
+      socket.on("msg", function (msg) {
+        tkn = msg.body;
+
+        require(["esri/layers/FeatureLayer", "esri/IdentityManager"],
+          function (FeatureLayer, esriId) {
+            esriId.registerToken({
+              token: tkn.token,
+              expires: tkn.expires,
+              ssl: tkn.ssl,
+              server: 'https://www.arcgis.com/'
+            });
+
+            var layer = new FeatureLayer("https://services.arcgis.com/Wl7Y1m92PbjtJs5n/arcgis/rest/services/SFplp/FeatureServer/2");
+
+            map.addLayer(layer);
+          });
+      });
+    });
+  </script>
+</head>
+<body>
+  <div id="map"></div>
+</body>
+</html>

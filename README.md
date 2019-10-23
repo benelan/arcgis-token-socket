@@ -1,5 +1,6 @@
 # backendToken
 Creating An ArcGIS Token with Node
+
 DISCLAIMER: I am not a security expert, and this is not secure. Use at your own risk.
 
 ## Prerequisites

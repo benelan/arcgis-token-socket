@@ -6,6 +6,7 @@ const app = require("express")(),
     io = require('socket.io')(server);
 
 app.use(helmet());
+app.use(helmet.referrerPolicy({ policy: 'no-referrer' }))
 
 app.get('/', (req, res) => {
     res.sendFile('map.html', { root: path.join(__dirname, '/') });

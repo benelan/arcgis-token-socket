@@ -5,6 +5,8 @@ DISCLAIMER: I am not a security expert, and this is not secure. Use at your own 
 
 ## Prerequisites
 
+Change the username/password in the server.js file. Change the secured service url in the map.html file too.
+
 To run the web app you must have [Node](https://nodejs.org/en/) installed. With Node installed, navigate to the root folder of the app and type:
 
 ```

@@ -20,8 +20,8 @@ io.on('connection', (socket) => {
             'password': 'PASSWORD', // this too
             'referer': 'localhost'  // and this for prod
         }
-    }, (error, response, body) => {
-        io.emit("msg", { body }); // sends token to client
+    }, (error, response, body) => {       
+        io.to(`${socket.id}`).emit("msg", { body });  // only emit to the new client
     });
 });
 
